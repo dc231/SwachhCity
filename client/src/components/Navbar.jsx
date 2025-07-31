@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { logout } from '../redux/userSlice'; 
 import { useNavigate } from 'react-router-dom'; 
@@ -23,6 +22,7 @@ function AppNavbar() {
           <Nav className="ms-auto">
             {isLoggedIn ?(
                 <>
+                <Nav.Link as={Link} to="/raisecomplaint">Raise Complaint</Nav.Link>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
             ) : (

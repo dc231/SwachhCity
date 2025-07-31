@@ -1,4 +1,3 @@
-import React from 'react';
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
@@ -10,6 +9,8 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AppNavbar from './components/Navbar';
+import Complaints from './pages/Complaints';
+
 function App() {
   const dispatch = useDispatch();
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/" element={<h1>Home Page</h1>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/raisecomplaint" element={<Complaints />} />
         </Routes>
       </div>
     </Router>
