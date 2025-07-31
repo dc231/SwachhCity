@@ -4,6 +4,7 @@ require("dotenv").config();
 const app = express();
 
 const authRoute = require("./Routes/AuthRoute");
+const complaintRoute = require('./Routes/ComplaintRoute');
 const { MONGO_URI } = process.env;
 
 mongoose
@@ -18,5 +19,6 @@ app.listen(4000, () => {
   console.log("Server is listening on port 4000");
 });
 
-app.use(express.json()); // This middleware allows server to understand JSON
-app.use("/", authRoute); // This tells server to use the authentication routes we created
+app.use(express.json()); 
+app.use("/", authRoute); 
+app.use("/", complaintRoute);
