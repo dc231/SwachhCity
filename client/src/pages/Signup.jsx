@@ -2,9 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 function Signup() {
+    const navigate = useNavigate(); 
     const [inputValue, setInputValue] = useState({
     email: '',
     password: '',
@@ -15,17 +18,26 @@ function Signup() {
   const { email, password, name, address } = inputValue;
 
   const handleOnChange = (e) => {
-  const { name, value } = e.target;
-  setInputValue({
-    ...inputValue,
-    [name]: value,
-    });
+    const { name, value } = e.target;
+    setInputValue({
+        ...inputValue,
+        [name]: value,
+        });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        console.log("Submitting:", inputValue);
+    } catch (error) {
+        console.log(error);
+    }
   };
 
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>
       <h2>Signup</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Full Name</label>
           <input
