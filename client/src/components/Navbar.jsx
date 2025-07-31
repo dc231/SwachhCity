@@ -1,8 +1,19 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux'; 
+import { logout } from '../redux/userSlice'; 
+import { useNavigate } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
 function AppNavbar() {
+  const { isLoggedIn } = useSelector((state) => state.user); 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
   return (
     <Navbar bg="dark" variant="dark" expand="lg">
       <Container>
@@ -10,9 +21,16 @@ function AppNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/login">Login</Nav.Link>
-            <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
-            {/* I will add authenticated links (like Logout) here later */}
+            {isLoggedIn ?(
+                <>
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                </>
+            ) : (
+                <>
+                <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                <Nav.Link as={Link} to="/signup">Signup</Nav.Link>
+                </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
