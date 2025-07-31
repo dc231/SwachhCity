@@ -1,4 +1,5 @@
 const User = require("../Models/userModel");
+const Admin = require("../Models/adminModel");
 const { createSecretToken } = require("../util/SecretToken");
 const bcrypt = require("bcrypt");
 
@@ -50,4 +51,27 @@ module.exports.Login = async (req, res, next) => {
   } catch (error) {
     console.error(error);
   }
-}
+};
+
+// Admin Signup
+module.exports.AdminSignup = async (req, res, next) => {
+    try {
+        const { email, password, name, createdAt } = req.body;
+        const existingAdmin = await Admin.findOne({ email });
+        if (existingAdmin) {
+            return res.json({ message: "Admin already exists" });
+        }
+        const admin = await Admin.create({ email, password, name, createdAt });
+        const token = createSecretToken(admin._id);
+        res.cookie("token", token, {
+            withCredentials: true,
+            httpOnly: false,
+        });
+        res
+            .status(201)
+            .json({ message: "Admin signed in successfully", success: true, admin });
+        next();
+    } catch (error) {
+        console.error(error);
+    }
+};
