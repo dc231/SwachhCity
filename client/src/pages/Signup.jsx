@@ -25,13 +25,42 @@ function Signup() {
         });
   };
 
+  const handleError = (err) =>
+    toast.error(err, {
+        position: 'bottom-left',
+    });
+
+  const handleSuccess = (msg) =>
+    toast.success(msg, {
+        position: 'bottom-right',
+    });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        console.log("Submitting:", inputValue);
+        const { data } = await axios.post('/api/signup', {
+            ...inputValue,
+            createdAt: new Date(),
+        });
+        const { success, message } = data;
+        if (success) {
+            handleSuccess(message);
+            setTimeout(() => {
+            navigate('/login');
+            }, 1000);
+        } else {
+            handleError(message);
+        }
     } catch (error) {
         console.log(error);
+        handleError('An error occurred during signup.');
     }
+    setInputValue({
+        email: '',
+        password: '',
+        name: '',
+        address: '',
+    });
   };
 
   return (
