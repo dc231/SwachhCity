@@ -14,6 +14,14 @@ function Signup() {
 
   const { email, password, name, address } = inputValue;
 
+  const handleOnChange = (e) => {
+  const { name, value } = e.target;
+  setInputValue({
+    ...inputValue,
+    [name]: value,
+    });
+  };
+
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>
       <h2>Signup</h2>
@@ -27,6 +35,7 @@ function Signup() {
             name="name"
             value={name}
             placeholder="Enter your full name"
+            onChange={handleOnChange}
           />
         </div>
         <div className="mb-3">
@@ -38,6 +47,7 @@ function Signup() {
             name="email"
             value={email}
             placeholder="Enter your email"
+            onChange={handleOnChange}
           />
         </div>
          <div className="mb-3">
@@ -49,6 +59,7 @@ function Signup() {
             name="address"
             value={address}
             placeholder="Enter your address"
+            onChange={handleOnChange}
           />
         </div>
         <div className="mb-3">
@@ -60,6 +71,7 @@ function Signup() {
             name="password"
             value={password}
             placeholder="Create a password"
+            onChange={handleOnChange}
           />
         </div>
         <button type="submit" className="btn btn-primary">Signup</button>
