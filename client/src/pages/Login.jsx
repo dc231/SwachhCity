@@ -1,8 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Login() {
+    const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
         email: '',
         password: '',
@@ -17,10 +21,38 @@ function Login() {
         [name]: value,
      });
     };
+
+   const handleError = (err) => toast.error(err, { position: 'bottom-left' });
+   const handleSuccess = (msg) => toast.success(msg, { position: 'bottom-right' });
+
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        const { data } = await axios.post('/api/login', {
+        ...inputValue,
+        });
+        const { message, success } = data;
+        if (success) {
+            handleSuccess(message);
+            setTimeout(() => {
+                navigate('/');
+            }, 1000);
+        } else {
+            handleError(message);
+        }
+    } catch (error) {
+        console.log(error);
+        handleError('An error occurred during login.');
+    }
+    setInputValue({
+        email: '',
+        password: '',
+    });
+    };
   return (
     <div className="container mt-5" style={{ maxWidth: '500px' }}>
       <h2>Login</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="email" className="form-label">Email address</label>
           <input
