@@ -21,3 +21,24 @@ module.exports.RaiseComplaint = async (req, res) => {
         res.status(500).json({ message: "Error raising complaint", success: false });
     }
 };
+
+module.exports.getComplaintHistory = async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ status: false, message: "No token provided" });
+  }
+
+  jwt.verify(token, process.env.TOKEN_KEY, async (err, data) => {
+    if (err) {
+      return res.status(401).json({ status: false, message: "Invalid token" });
+    } else {
+      try {
+        const complaints = await Complaint.find({ user: data.id });
+        res.status(200).json({ success: true, complaints });
+      } catch (error) {
+        console.error("Error fetching complaint history:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+      }
+    }
+  });
+};
