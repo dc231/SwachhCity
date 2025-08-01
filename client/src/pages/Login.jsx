@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+
 function Login() {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState({
@@ -52,9 +53,9 @@ function Login() {
         <div className="form-card">
             <h2>User Login</h2>
             <div className="alert alert-info small p-2">
-                <strong>Demo Credentials:</strong><br />
-                Email: <code>testuser@example.com</code><br />
-                Password: <code>password123</code>
+            <strong>Demo Credentials:</strong><br />
+            Email: <code>testuser@example.com</code><br />
+            Password: <code>password123</code>
             </div>
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">

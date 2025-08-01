@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const app = express();
+const cookieParser = require("cookie-parser"); 
+const cors = require("cors");
 
 const authRoute = require("./Routes/AuthRoute");
 const complaintRoute = require('./Routes/ComplaintRoute');
@@ -19,6 +21,15 @@ app.listen(4000, () => {
   console.log("Server is listening on port 4000");
 });
 
+app.use(
+  cors({
+    origin: ["http://localhost:5173"], 
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, 
+  })
+);
+
+app.use(cookieParser());
 app.use(express.json()); 
 app.use("/", authRoute); 
 app.use("/", complaintRoute);
