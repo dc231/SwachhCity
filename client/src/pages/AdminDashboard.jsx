@@ -23,6 +23,25 @@ function AdminDashboard() {
     fetchAllComplaints();
   }, []);
 
+  const handleResolve = async (id) => {
+  try {
+    const { data } = await axios.put(`/api/complaints/${id}/resolve`);
+    if (data.success) {
+      toast.success(data.message);
+      setComplaints((prevComplaints) =>
+        prevComplaints.map((complaint) =>
+          complaint._id === id ? { ...complaint, status: 'Resolved' } : complaint
+        )
+      );
+    } else {
+      toast.error(data.message);
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error('Failed to resolve complaint.');
+    }
+  };
+
   return (
     <div className="container mt-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -60,7 +79,8 @@ function AdminDashboard() {
                   </td>
                   <td>
                     {complaint.status === 'Pending' && (
-                      <button className="btn btn-sm btn-success">
+                      <button className="btn btn-sm btn-success" 
+                      onClick={() => handleResolve(complaint._id)}>
                         Resolve
                       </button>
                     )}
