@@ -23,6 +23,7 @@ function AppNavbar() {
             {isLoggedIn ?(
                 <>
                 <Nav.Link as={Link} to="/raisecomplaint">Raise Complaint</Nav.Link>
+                <Nav.Link as={Link} to="/complainthistory">History</Nav.Link>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
             ) : (
