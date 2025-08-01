@@ -3,15 +3,24 @@ import { logout } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function AppNavbar() {
   const { isLoggedIn } = useSelector((state) => state.user); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate('/login');
+  const handleLogout = async () => {
+    try {
+        await axios.post('/api/logout');
+        dispatch(logout());
+        toast.success("Logged out successfully");
+        navigate('/login');
+    } catch (error) {
+        console.error("Logout failed", error);
+        toast.error("Logout failed. Please try again.");
+    }
   };
   return (
     <Navbar bg="dark" variant="dark" expand="lg">

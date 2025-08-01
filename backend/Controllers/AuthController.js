@@ -102,3 +102,9 @@ module.exports.AdminLogin = async (req, res, next) => {
     console.error(error);
   }
 };
+
+
+module.exports.Logout = (req, res) => {
+    res.cookie('token', '', { expires: new Date(0) });
+    res.status(200).json({ message: "Logged out successfully", success: true });
+};
