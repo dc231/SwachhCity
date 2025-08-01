@@ -42,3 +42,13 @@ module.exports.getComplaintHistory = async (req, res) => {
     }
   });
 };
+
+module.exports.getAllComplaints = async (req, res) => {
+    try {
+        const complaints = await Complaint.find({}).populate('user', 'name email');
+        res.status(200).json({ success: true, complaints });
+    } catch (error) {
+        console.error("Error fetching all complaints:", error);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+};
