@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice';
 
 
 function Login() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState({
         email: '',
         password: '',
@@ -21,33 +24,23 @@ function Login() {
      });
     };
 
-   const handleError = (err) => toast.error(err, { position: 'bottom-left' });
-   const handleSuccess = (msg) => toast.success(msg, { position: 'bottom-right' });
-
    const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const { data } = await axios.post('/api/login', {
-        ...inputValue,
-        });
-        const { message, success } = data;
-        if (success) {
-            handleSuccess(message);
-            setTimeout(() => {
-                navigate('/');
-            }, 1000);
-        } else {
-            handleError(message);
-        }
+      const { data } = await axios.post('/api/login', { ...inputValue });
+      const { message, success, user } = data;
+      if (success) {
+        toast.success(message);
+        dispatch(login({ name: user.name, email: user.email, address: user.address }));
+        navigate('/');
+      } else {
+        toast.error(message);
+      }
     } catch (error) {
-        console.log(error);
-        handleError('An error occurred during login.');
+      console.log(error);
+      toast.error('An error occurred during login.');
     }
-    setInputValue({
-        email: '',
-        password: '',
-    });
-    };
+  };
   return (
     <div className="form-container">
         <div className="form-card">

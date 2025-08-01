@@ -1,8 +1,7 @@
-import { Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Signup() {
@@ -37,29 +36,27 @@ function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const { data } = await axios.post('/api/signup', {
-            ...inputValue,
-            createdAt: new Date(),
+      const { data } = await axios.post('/api/signup', {
+        ...inputValue,
+        createdAt: new Date(),
+      });
+      const { success, message } = data;
+      if (success) {
+        handleSuccess(message);
+        navigate('/login');
+        setInputValue({
+          email: '',
+          password: '',
+          name: '',
+          address: '',
         });
-        const { success, message } = data;
-        if (success) {
-            handleSuccess(message);
-            setTimeout(() => {
-            navigate('/login');
-            }, 1000);
-        } else {
-            handleError(message);
-        }
+      } else {
+        handleError(message);
+      }
     } catch (error) {
-        console.log(error);
-        handleError('An error occurred during signup.');
+      console.log(error);
+      handleError('An error occurred during signup.');
     }
-    setInputValue({
-        email: '',
-        password: '',
-        name: '',
-        address: '',
-    });
   };
 
   return (

@@ -39,6 +39,7 @@ function App() {
     <Router>
       <div>
         <AppNavbar />
+        <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
