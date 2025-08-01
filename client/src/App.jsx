@@ -40,7 +40,7 @@ function App() {
       <div>
         <AppNavbar />
         <Routes>
-          <Route path="/" element={<h1>Home Page</h1>} />
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/raisecomplaint" element={<Complaints />} />

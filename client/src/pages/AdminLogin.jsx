@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 function AdminLogin() {
   const navigate = useNavigate();
@@ -37,33 +38,42 @@ function AdminLogin() {
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: '500px' }}>
-      <h2>Admin Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email address</label>
-          <input
-            type="email"
-            className="form-control"
-            name="email"
-            value={inputValue.email}
-            placeholder="Enter admin email"
-            onChange={handleOnChange}
-          />
+    <div className="form-container">
+        <div className="form-card">
+            <h2>Admin Login</h2>
+            <div className="alert alert-info small p-2">
+                <strong>Demo Credentials:</strong><br />
+                Email: <code>testadmin@example.com</code><br />
+                Password: <code>password123</code>
+            </div>
+            <form onSubmit={handleSubmit}>
+                <div className="mb-3">
+                <label htmlFor="email" className="form-label">Email address</label>
+                <input
+                    type="email"
+                    className="form-control"
+                    name="email"
+                    value={inputValue.email}
+                    placeholder="Enter admin email"
+                    onChange={handleOnChange}
+                />
+                </div>
+                <div className="mb-3">
+                <label htmlFor="password" className="form-label">Password</label>
+                <input
+                    type="password"
+                    className="form-control"
+                    name="password"
+                    value={inputValue.password}
+                    placeholder="Enter admin password"
+                    onChange={handleOnChange}
+                />
+                </div>
+                <button type="submit" className="btn btn-primary">Login as Admin</button>
+            </form>
+
+            <Link to="/login" className="admin-login-link">User Login</Link>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Password</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            value={inputValue.password}
-            placeholder="Enter admin password"
-            onChange={handleOnChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-success">Login as Admin</button>
-      </form>
     </div>
   );
 }
