@@ -11,6 +11,7 @@ import Signup from './pages/Signup';
 import AppNavbar from './components/Navbar';
 import Complaints from './pages/Complaints';
 import ComplaintHistory from './pages/ComplaintHistory';
+import AdminLogin from './pages/AdminLogin';
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/raisecomplaint" element={<Complaints />} />
           <Route path="/complainthistory" element={<ComplaintHistory />} />
+          <Route path="/admin" element={<AdminLogin />} />
         </Routes>
       </div>
     </Router>

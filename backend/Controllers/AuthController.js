@@ -75,3 +75,30 @@ module.exports.AdminSignup = async (req, res, next) => {
         console.error(error);
     }
 };
+
+// Admin Login
+module.exports.AdminLogin = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.json({ message: "All fields are required" });
+    }
+    const admin = await Admin.findOne({ email });
+    if (!admin) {
+      return res.json({ message: "Incorrect password or email" });
+    }
+    const auth = await bcrypt.compare(password, admin.password);
+    if (!auth) {
+      return res.json({ message: "Incorrect password or email" });
+    }
+    const token = createSecretToken(admin._id);
+    res.cookie("token", token, {
+      withCredentials: true,
+      httpOnly: false,
+    });
+    res.status(201).json({ message: "Admin logged in successfully", success: true });
+    next();
+  } catch (error) {
+    console.error(error);
+  }
+};
