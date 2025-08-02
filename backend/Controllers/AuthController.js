@@ -41,6 +41,8 @@ module.exports.Login = async (req, res, next) => {
     res.cookie("token", token, {
       withCredentials: true,
       httpOnly: false,
+      secure: true, 
+      sameSite: 'none',
     });
     res.status(201).json({ 
       message: "User logged in successfully", 
@@ -95,6 +97,8 @@ module.exports.AdminLogin = async (req, res, next) => {
     res.cookie("token", token, {
       withCredentials: true,
       httpOnly: false,
+      secure: true, 
+      sameSite: 'none',
     });
     res.status(201).json({ message: "Admin logged in successfully", success: true });
     next();
@@ -105,6 +109,11 @@ module.exports.AdminLogin = async (req, res, next) => {
 
 
 module.exports.Logout = (req, res) => {
-    res.cookie('token', '', { expires: new Date(0) });
+    res.cookie('token', '', { 
+      expires: new Date(0) ,
+      httpOnly: false,
+      secure: true, 
+      sameSite: 'none',
+    });
     res.status(200).json({ message: "Logged out successfully", success: true });
 };
