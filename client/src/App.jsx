@@ -20,7 +20,6 @@ function App() {
   useEffect(() => {
     const verifyUser = async () => {
       try {
-        axios.defaults.withCredentials = true; 
         const { data } = await API.post('/verify');
         if (data.status) {
           dispatch(login({
