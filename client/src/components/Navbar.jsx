@@ -3,7 +3,7 @@ import { logout } from '../redux/userSlice';
 import { useNavigate } from 'react-router-dom'; 
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
-import axios from 'axios';
+import API from '../api';
 import { toast } from 'react-toastify';
 
 function AppNavbar() {
@@ -13,7 +13,7 @@ function AppNavbar() {
 
   const handleLogout = async () => {
     try {
-        await axios.post('/api/logout');
+        await API.post('/logout');
         dispatch(logout());
         toast.success("Logged out successfully");
         navigate('/login');
