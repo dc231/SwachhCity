@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import API from '../api';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
@@ -22,7 +22,7 @@ function AdminLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/adminlogin', { ...inputValue });
+      const { data } = await API.post('/adminlogin', { ...inputValue });
       const { message, success } = data;
       if (success) {
         toast.success(message);

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import axios from 'axios';
+import API from './api';
 import { useDispatch } from 'react-redux';
 import { login } from './redux/userSlice';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -21,7 +21,7 @@ function App() {
     const verifyUser = async () => {
       try {
         axios.defaults.withCredentials = true; 
-        const { data } = await axios.post('/api/verify');
+        const { data } = await API.post('/verify');
         if (data.status) {
           dispatch(login({
           name: data.user.name,

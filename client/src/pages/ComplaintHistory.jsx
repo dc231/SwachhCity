@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import API from '../api';
 import { toast } from 'react-toastify';
 
 function ComplaintHistory() {
@@ -17,7 +17,7 @@ function ComplaintHistory() {
 
     const fetchComplaintHistory = async () => {
       try {
-        const { data } = await axios.get('/api/complainthistory');
+        const { data } = await API.get('/complainthistory');
         if (data.success) {
           setComplaints(data.complaints);
         } else {

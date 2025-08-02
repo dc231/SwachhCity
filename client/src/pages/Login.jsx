@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import API from '../api';
 import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/userSlice';
@@ -27,7 +27,7 @@ function Login() {
    const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/login', { ...inputValue });
+      const { data } = await API.post('/login', { ...inputValue });
       const { message, success, user } = data;
       if (success) {
         toast.success(message);

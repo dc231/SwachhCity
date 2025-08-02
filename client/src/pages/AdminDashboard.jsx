@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import API from '../api';
 import { toast } from 'react-toastify';
 
 function AdminDashboard() {
@@ -7,7 +7,7 @@ function AdminDashboard() {
 
   const fetchAllComplaints = async () => {
     try {
-      const { data } = await axios.get('/api/allcomplaints');
+      const { data } = await API.get('/allcomplaints');
       if (data.success) {
         setComplaints(data.complaints);
       } else {
@@ -25,7 +25,7 @@ function AdminDashboard() {
 
   const handleResolve = async (id) => {
   try {
-    const { data } = await axios.put(`/api/complaints/${id}/resolve`);
+    const { data } = await API.put(`/complaints/${id}/resolve`);
     if (data.success) {
       toast.success(data.message);
       setComplaints((prevComplaints) =>

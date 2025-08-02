@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import API from '../api';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,7 +33,7 @@ function Complaints() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post('/api/raisecomplaint', {
+      const { data } = await API.post('/raisecomplaint', {
         ...inputValue,
       });
       if (data.success) {

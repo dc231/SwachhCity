@@ -10,10 +10,7 @@ const complaintRoute = require('./Routes/ComplaintRoute');
 const { MONGO_URI } = process.env;
 
 mongoose
-  .connect(MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(MONGO_URI)
   .then(() => console.log("MongoDB is connected successfully"))
   .catch((err) => console.error(err));
 
