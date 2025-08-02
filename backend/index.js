@@ -20,7 +20,7 @@ app.listen(4000, () => {
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"], 
+    origin: ["http://localhost:5173","https://swachh-tracker-mk01aachd-dheeraj-chaudharys-projects.vercel.app"], 
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, 
   })
