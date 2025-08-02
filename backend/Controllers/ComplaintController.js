@@ -3,21 +3,28 @@ const User = require('../Models/userModel');
 const jwt = require("jsonwebtoken");
 
 module.exports.RaiseComplaint = async (req, res) => {
-    // I will add logic here later to get the user ID from a token
     try {
-        const { wastetype, date, time, address, description, userId } = req.body; // Assume userId is sent for now
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(401).json({ status: false, message: "Authentication required" });
+        }
+        const data = jwt.verify(token, process.env.TOKEN_KEY);
+        const { wastetype, date, time, address, description } = req.body; 
         const newComplaint = new Complaint({
             wastetype,
             date,
             time,
             address,
             description,
-            user: userId
+            user: data.id
         });
         await newComplaint.save();
         res.status(201).json({ message: "Complaint raised successfully", success: true });
     } catch (error) {
         console.error("Error raising complaint:", error);
+        if (error.name === 'JsonWebTokenError') {
+            return res.status(401).json({ status: false, message: "Invalid token" });
+        }
         res.status(500).json({ message: "Error raising complaint", success: false });
     }
 };
