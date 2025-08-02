@@ -1,13 +1,7 @@
 import axios from 'axios';
 
-const isProduction = import.meta.env.MODE === 'production';
-
-const baseURL = isProduction
-  ? 'https://swachh-tracker-api.onrender.com'  
-  : 'http://localhost:4000'; 
-
 const API = axios.create({
-  baseURL: baseURL , 
+  baseURL: import.meta.env.VITE_BACKEND_URL,
   withCredentials: true,   
 });
 
