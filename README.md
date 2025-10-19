@@ -1,6 +1,6 @@
-# Swachh-Tracker 🚮
+# SwachhCity
 
-Swachh-Tracker is a full-stack MERN application designed to streamline the process of garbage collection and complaint management. It provides a user-friendly platform for citizens to raise complaints about waste pickup and a dedicated dashboard for administrators to view and resolve these issues efficiently.
+SwachhCity is a full-stack MERN application designed to streamline the process of garbage collection and complaint management. It provides a user-friendly platform for citizens to raise complaints about waste pickup and a dedicated dashboard for administrators to view and resolve these issues efficiently.
 
 ## ✨ Features
 
