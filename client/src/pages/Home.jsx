@@ -10,7 +10,7 @@ function Home() {
         <section className="home-section">
             <div className="home-container">
                 <div className="text-content">
-                    <h1 className="display-4">Welcome to Swachh-Tracker</h1>
+                    <h1 className="display-4">Welcome to SwachhCity</h1>
                     <p className="lead">
                         Your one-stop solution to report and track garbage collection issues in your area.
                         Help us keep our cities clean, together.
